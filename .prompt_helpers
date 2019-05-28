@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# defined colors to make it easier to output visually stimulating prompts and other messages
+
+# escapes the arguments you send it
+function esc () { echo -ne "\\033[$*"; }
+
+# ANSI escape for setting colors
+function c () { esc $1m; }
+
+# reset colors to defaults
+function ansi_reset () { c 0; }
+
+# Foreground Shortcuts
+# normal (reset)
+function fgc () { c "0;$1"; }
+
+# Other prompt helpers
+
+# Set a Terminal's title with this, saves a lot of weird strings from the prompts
+function title { echo -ne "\\033]0;$*\007"; }
+
+# Gets the present working directory and returns just the last 2 directories, good for shortening titles and prompts
+function PWD { tmp=${PWD%/*/*}; [ ${#tmp} -gt 0 -a "$tmp" != "$PWD" ] && echo ${PWD:${#tmp}+1} || echo $PWD; }
+
+function colorful_hostname {
+   echo $(fgc 31)`hostname`$(fgc 39):
+}
+
+# git helpers
+
+git_branch() {
+    git branch 2> ~/.nil | \
+      awk -v on_color="$(fgc 34)" -v branch_color=""$(fgc 35) '$1 =="*" { printf on_color " on " branch_color $2 " " $3 }'
+}
+
+git_dirty() {
+    git status 2> ~/.nil |
+      awk 'index($0,"Untracked files:") { unknown = 1 }
+           index($0,"modified:") { changed = 1 }
+           index($0,"new file:") { new = 1 }
+           index($0,"deleted:") { deleted = 1 }
+           index($0,"renamed:") { changed = 1 }
+           END {
+             if (unknown) printf "?"
+             else if (changed) printf "!"
+             else if (new) printf "."
+             else if (deleted) printf "-"
+           }'
+}
+
