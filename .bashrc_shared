@@ -1,3 +1,5 @@
+export LC_ALL=en_US.UTF-8
+
 source ~/.prompt_helpers
 
 PS1='\[$(title $(PWD))\]$(fgc 33)$(whoami)$(ansi_reset)@$(colorful_hostname) \[$(fgc 32)\]\w$(git_branch)\[$(fgc 32)\]$(git_dirty)\n\[\r\]\[$(fgc 34)\]\$\[$(ansi_reset)\] '
