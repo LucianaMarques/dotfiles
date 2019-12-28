@@ -3,3 +3,22 @@ export LC_ALL=en_US.UTF-8
 source ~/.prompt_helpers
 
 PS1='\[$(title $(PWD))\]$(fgc 33)$(whoami)$(ansi_reset)@$(colorful_hostname) \[$(fgc 32)\]\w$(git_branch)\[$(fgc 32)\]$(git_dirty)\n\[\r\]\[$(fgc 34)\]\$\[$(ansi_reset)\] '
+
+# aliases
+# git
+alias g='git'
+alias ga='g add'
+alias gl='g log'
+alias gs='g status'
+alias gpl='g pull'
+alias gps='g push'
+alias gc='g commit -am'
+alias gck='g checkout'
+alias gdf='g diff'
+alias gdfn='df --name-only'
+alias gunstage='g reset HEAD -- '
+
+#lein
+alias lr='lein repl'
+alias ldp='lein deps'
+alias lma='lein midje :autotest'
