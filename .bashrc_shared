@@ -22,3 +22,6 @@ alias gunstage='g reset HEAD -- '
 alias lr='lein repl'
 alias ldp='lein deps'
 alias lma='lein midje :autotest'
+
+# hold-and-press accents (mac only
+# defaults write -g ApplePressAndHoldEnabled -bool true
